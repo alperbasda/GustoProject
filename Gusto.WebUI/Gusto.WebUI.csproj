@@ -45,7 +45,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -120,34 +129,63 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\DomainController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="PagerHelper\HtmlPager.cs" />
+    <Compile Include="PagerHelper\QueryStringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Metronic\fonts\flaticon\Flaticon.svg" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-brands-400.svg" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-regular-400.svg" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-solid-900.svg" />
+    <Content Include="Content\Metronic\fonts\line-awesome\line-awesome.svg" />
+    <Content Include="Content\Metronic\fonts\metronic\Metronic_fda1334c35d0f5fe2afb3afebbb6774a.svg" />
+    <Content Include="Content\Metronic\style.bundle.css" />
+    <Content Include="Content\Metronic\vendors.bundle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Content\Metronic\fonts\flaticon\Flaticon.eot" />
+    <Content Include="Content\Metronic\fonts\flaticon\Flaticon.ttf" />
+    <Content Include="Content\Metronic\fonts\flaticon\Flaticon.woff" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-brands-400.eot" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-brands-400.ttf" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-brands-400.woff" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-brands-400.woff2" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-regular-400.eot" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-regular-400.ttf" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-regular-400.woff" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-regular-400.woff2" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-solid-900.eot" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-solid-900.ttf" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-solid-900.woff" />
+    <Content Include="Content\Metronic\fonts\fontawesome5\fa-solid-900.woff2" />
+    <Content Include="Content\Metronic\fonts\line-awesome\line-awesome.eot" />
+    <Content Include="Content\Metronic\fonts\line-awesome\line-awesome.ttf" />
+    <Content Include="Content\Metronic\fonts\line-awesome\line-awesome.woff" />
+    <Content Include="Content\Metronic\fonts\line-awesome\line-awesome.woff2" />
+    <Content Include="Content\Metronic\fonts\metronic\Metronic_fda1334c35d0f5fe2afb3afebbb6774a.eot" />
+    <Content Include="Content\Metronic\fonts\metronic\Metronic_fda1334c35d0f5fe2afb3afebbb6774a.ttf" />
+    <Content Include="Content\Metronic\fonts\metronic\Metronic_fda1334c35d0f5fe2afb3afebbb6774a.woff" />
+    <Content Include="Content\Metronic\fonts\metronic\Metronic_fda1334c35d0f5fe2afb3afebbb6774a.woff2" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Metronic\dashboard.js" />
+    <Content Include="Scripts\Metronic\scripts.bundle.js" />
+    <Content Include="Scripts\Metronic\toast.js" />
+    <Content Include="Scripts\Metronic\toastr.js" />
+    <Content Include="Scripts\Metronic\vendors.bundle.js" />
+    <Content Include="Scripts\Site\create.js" />
+    <Content Include="Scripts\Site\edit.js" />
+    <Content Include="Scripts\Site\fill-search.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -159,9 +197,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Domain\Index.cshtml" />
+    <Content Include="Views\Domain\Create.cshtml" />
+    <Content Include="Views\Domain\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -173,12 +211,22 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gusto.Business\Gusto.Business.csproj">
+      <Project>{F2304111-1154-463F-B64A-E81D553E4C90}</Project>
+      <Name>Gusto.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gusto.Core\Gusto.Core.csproj">
+      <Project>{A8EF3F5E-C1DD-4B14-8B97-C81C9046C4A4}</Project>
+      <Name>Gusto.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gusto.Entities\Gusto.Entities.csproj">
+      <Project>{C3E75F6D-CE67-4C68-8E6F-4C1BCD6BEA6B}</Project>
+      <Name>Gusto.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

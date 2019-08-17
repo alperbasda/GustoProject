@@ -1,0 +1,192 @@
+﻿@using Gusto.Business.Helper
+@using Gusto.Entities.Enum
+@model Gusto.Entities.ComplexType.DetailDomainModel
+@{
+    ViewBag.Title = "Domain Düzenle";
+}
+
+
+<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop m-body align-custom">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+        <!-- BEGIN: Subheader -->
+        <div class="m-subheader ">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h6 class="m-subheader__title m-subheader__title--separator">Domain Duzenle</h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- END: Subheader -->
+        <div class="m-content">
+            <!--Begin::Section-->
+
+            <div class="row m--margin-bottom-20 text-center justify-content-center">
+                <h4 style="color:cornflowerblue">Proje Bilgileri</h4>
+            </div>
+            <div class="row m--margin-bottom-20 text-center justify-content-center">
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <div class="form-group m-form__group">
+                        <label>Proje Adı</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control m-input" disabled="disabled" name="ProjeAdi" value="@Model.ProjeAdi">
+                            <div class="input-group-append"><span data-toggle="modal" data-target="#editModal" data-edit-value="@Model.ProjeAdi" data-edit-label="Proje Adı" data-edit-name="ProjeAdi" style="cursor: pointer" class="input-group-text"><i class="la la-edit"></i></span></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Proje Tipi</label>
+                    <select class="form-control" name="ProjeTipi">
+                        <option selected="selected" disabled="disabled"> Proje Tipi Seçin </option>
+                        @foreach (ProjeTipi tip in ((ProjeTipi[])Enum.GetValues(typeof(ProjeTipi))).ToList())
+                        {
+                            if (Model.ProjeTipi == tip)
+                            {
+                                <option selected="selected" value="@tip"> @tip.GetDescription() </option>
+                            }
+                            else
+                            {
+                                <option value="@tip"> @tip.GetDescription() </option>
+                            }
+
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Yenileme Periyodu</label>
+                    <input type="number" class="form-control m-input" disabled="disabled" name="YenilemePeriyodu" value="@Model.YenilemePeriyodu">
+                    <div class="input-group-append"><span data-toggle="modal" data-target="#editModal" data-edit-value="@Model.YenilemePeriyodu" data-edit-label="Yenileme Periyodu" data-edit-name="YenilemePeriyodu" style="cursor: pointer" class="input-group-text"><i class="la la-edit"></i></span></div>
+                </div>
+            </div>
+            <div class="row m--margin-bottom-20 text-center justify-content-center">
+                <h4 style="color:cornflowerblue">Domain Bilgileri</h4>
+            </div>
+            <div class="row m--margin-bottom-20 text-center justify-content-center">
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Domain Adı</label>
+                    <input type="text" class="form-control m-input" disabled="disabled" name="DomainAdi" value="@Model.DomainAdi">
+                    <div class="input-group-append"><span data-toggle="modal" data-target="#editModal" data-edit-value="@Model.DomainAdi" data-edit-label="Domain Adi" data-edit-name="DomainAdi" style="cursor: pointer" class="input-group-text"><i class="la la-edit"></i></span></div>
+                </div>
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Domain Bitiş Tarihi</label>
+                    <input type="date" class="form-control m-input" value="@string.Format("{0:yyyy-MM-dd}", Model.DomainBitisTarihi)" name="DomainBitisTarihi">
+                </div>
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Domain Fiyatı</label>
+                    <input type="number" class="form-control m-input" disabled="disabled" name="DomainFiyati" value="@Model.DomainFiyati">
+                    <div class="input-group-append"><span data-toggle="modal" data-target="#editModal" data-edit-value="@Model.DomainFiyati" data-edit-label="Domain Fiyati" data-edit-name="DomainFiyati" style="cursor: pointer" class="input-group-text"><i class="la la-edit"></i></span></div>
+                </div>
+            </div>
+            <div class="row m--margin-bottom-20 text-center justify-content-center">
+                <h4 style="color:cornflowerblue">Sunucu Bilgileri</h4>
+            </div>
+            <div class="row m--margin-bottom-20 text-center justify-content-center">
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Sunucu</label>
+                    <input type="text" class="form-control m-input" disabled="disabled" name="Sunucu" value="@Model.Sunucu">
+                    <div class="input-group-append"><span data-toggle="modal" data-target="#editModal" data-edit-value="@Model.Sunucu" data-edit-label="Sunucu" data-edit-name="Sunucu" style="cursor: pointer" class="input-group-text"><i class="la la-edit"></i></span></div>
+                </div>
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Sunucu Bitis Tarihi</label>
+                    <input type="date" class="form-control m-input" value="@string.Format("{0:yyyy-MM-dd}", Model.SunucuBitisTarihi)" name="SunucuBitisTarihi">
+                </div>
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Sunucu Fiyati</label>
+                    <input type="number" class="form-control m-input" disabled="disabled" name="SunucuFiyati" value="@Model.SunucuFiyati">
+                    <div class="input-group-append"><span data-toggle="modal" data-target="#editModal" data-edit-value="@Model.SunucuFiyati" data-edit-label="SunucuFiyati" data-edit-name="SunucuFiyati" style="cursor: pointer" class="input-group-text"><i class="la la-edit"></i></span></div>
+                </div>
+            </div>
+            <div class="row m--margin-bottom-20 text-center justify-content-center">
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <div class="m-form__group form-group">
+                        <h4 style="color:cornflowerblue">SSL Var mı ?</h4>
+                        <div class="m-radio-inline">
+                            <label class="m-radio">
+                                <input type="radio" name="SslVarmi" value="true"> Var
+                                <span></span>
+                            </label>
+                            <label class="m-radio">
+                                <input type="radio" name="SslVarmi" checked="checked" value="false"> Yok
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row m--margin-bottom-20 text-center justify-content-center" id="SslRow" hidden="hidden">
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>SSL Bitis Tarihi</label>
+                    <input type="date" class="form-control m-input" value="@string.Format("{0:yyyy-MM-dd}", Model.SslBitisTarihi)" name="SslBitisTarihi">
+                </div>
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>SSL Fiyatı</label>
+                    <input type="number" class="form-control m-input" disabled="disabled" name="SslFiyati" value="@Model.SslFiyati">
+                    <div class="input-group-append"><span data-toggle="modal" data-target="#editModal" data-edit-value="@Model.SslFiyati" data-edit-label="SslFiyati" data-edit-name="SslFiyati" style="cursor: pointer" class="input-group-text"><i class="la la-edit"></i></span></div>
+                </div>
+
+            </div>
+            <div class="row m--margin-bottom-20 text-center justify-content-center">
+                <h4 style="color:cornflowerblue">Statik Ip Bilgileri</h4>
+            </div>
+            <div class="row m--margin-bottom-20 text-center justify-content-center">
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Statik Ip</label>
+                    <input type="text" class="form-control m-input" disabled="disabled" name="StatikIp" value="@Model.StatikIp">
+                    <div class="input-group-append"><span data-toggle="modal" data-target="#editModal" data-edit-value="@Model.StatikIp" data-edit-label="StatikIp" data-edit-name="StatikIp" style="cursor: pointer" class="input-group-text"><i class="la la-edit"></i></span></div>
+                </div>
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Statik Ip Bitis Tarihi</label>
+                    <input type="date" class="form-control m-input" value="@string.Format("{0:yyyy-MM-dd}", Model.StatikIpBitisTarihi)" name="StatikIpBitisTarihi">
+                </div>
+                <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                    <label>Statik Ip Fiyati</label>
+                    <input type="number" class="form-control m-input" disabled="disabled" name="StatikIpFiyati" value="@Model.StatikIpFiyati">
+                    <div class="input-group-append"><span data-toggle="modal" data-target="#editModal" data-edit-value="@Model.StatikIpFiyati" data-edit-label="StatikIpFiyati" data-edit-name="StatikIpFiyati" style="cursor: pointer" class="input-group-text"><i class="la la-edit"></i></span></div>
+                </div>
+            </div>
+
+
+            <!--End::Section-->
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit-label"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="form-group m-form__group col-12">
+                            <div class="input-group">
+                                <input type="text" id="edit-value" class="form-control">
+                                <input type="hidden" id="item" class="form-control" value="@Model.Id">
+                                <input type="hidden" id="edit-name" class="form-control">
+                                <div class="input-group-append">
+                                    <button class="btn btn-brand" id="save-changes" data-dismiss="modal" type="button">Kaydet</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Site/edit.js"></script>
+}

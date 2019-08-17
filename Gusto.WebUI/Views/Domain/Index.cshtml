@@ -1,0 +1,164 @@
+﻿@using Gusto.Business.Helper
+@using Gusto.Entities.ComplexType
+@using Gusto.Entities.Enum
+@using Gusto.WebUI.PagerHelper
+@model Gusto.Entities.PageModels.PageBaseModel
+
+@{
+    ViewBag.Title = "Anasayfa";
+}
+<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop m-body align-custom">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+        <!-- BEGIN: Subheader -->
+        <div class="m-subheader ">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h6 class="m-subheader__title m-subheader__title--separator">Tüm Domainler</h6>
+                </div>
+            </div>
+        </div>
+        <!-- END: Subheader -->
+        <div class="m-content">
+            <!--Begin::SearchArea-->
+            <form method="get" class="m-form m-form--fit">
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Proje Adı:</label>
+                        <input type="text" class="form-control m-input" name="ProjeAdi" placeholder="Örn : Verbiteklif">
+                    </div>
+                    <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Proje Tipi:</label>
+                        <select class="form-control" name="ProjeTipi">
+                            <option selected="selected" disabled="disabled"> Proje Tipi Seçin </option>
+                            @foreach (ProjeTipi tip in ((ProjeTipi[])Enum.GetValues(typeof(ProjeTipi))).ToList())
+                            {
+                                <option value="@tip"> @tip.GetDescription() </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Yenileme Periodu:</label>
+                        <input type="number" class="form-control m-input" name="YenilemePeriyodu" placeholder="Örn : 4">
+                    </div>
+                    <div class="col-lg-3 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Domain Bitiş Tarihi:</label>
+                        <div class="input-daterange input-group" id="m_datepicker">
+                            <input type="date" class="form-control m-input" name="DomainBitisTarihiBaslangic" placeholder="Başlangıç">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
+                            </div>
+                            <input type="date" class="form-control m-input" name="DomainBitisTarihiBitis" placeholder="Bitiş">
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-brand m-btn m-btn--icon">
+                            <span>
+                                <i class="la la-search"></i>
+                                <span>Ara</span>
+                            </span>
+                        </button>
+                        <button type="reset" class="btn btn-secondary m-btn m-btn--icon" id="m_reset">
+                            <span>
+                                <span>Sıfırla</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="m-separator m-separator--md m-separator--dashed"></div>
+            <!--End::SearchArea-->
+            <!--Begin::Section-->
+            <div class="row table-responsive dataTables_wrapper dt-bootstrap4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Proje Adı</th>
+                            <th>Proje Tipi</th>
+                            <th>Yenileme Periyodu</th>
+                            <th>Domain Adı </th>
+                            <th>Domain Bitiş Tarihi</th>
+                            <th>Sunucu</th>
+                            <th>Static Ip</th>
+                            <th>Ssl</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.TableData != null)
+                        {
+                            foreach (var item in (List<DomainTableModel>)Model.TableData)
+                            {
+                                <tr>
+                                    <td>@item.ProjeAdi</td>
+                                    <td>@item.ProjeTipi.GetDescription()</td>
+                                    <td>@item.YenilemePeriyodu</td>
+                                    <td>@item.DomainAdi</td>
+                                    <td>@item.DomainBitisTarihi.ToShortDateString()</td>
+                                    <td>@item.Sunucu</td>
+                                    <td>@item.StatikIp</td>
+                                    @if (item.SslVarmi)
+                                    {
+                                        <td><i class="fa fa-check" style="color: green"></i></td>
+                                    }
+                                    else
+                                    {
+                                        <td><i class="fa fa-times" style="color: red"></i></td>
+                                    }
+                                    <td><a href="@Url.Action("Edit", "Domain", new {id = item.Id})"><i class="fa fa-edit" style="color: coral"></i></a></td>
+                                    <td><a href="@Url.Action("Delete", "Domain", new {id = item.Id})"><i class="fa fa-trash-alt" style="color: red"></i></a></td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+                <!--End::Table-->
+                <!--Begin::Pager-->
+                <div class="col-sm-12 col-md-7 dataTables_pager">
+                    <div class="dataTables_paginate paging_simple_numbers" id="m_table_1_paginate">
+                        <ul class="pagination">
+                            @Html.Pager(Model.TotalPage, Request.QueryString)
+                        </ul>
+                    </div>
+                </div>
+                <br />
+                <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info" id="m_table_1_info" role="status" aria-live="polite">
+                        Toplam
+                        @Model.TotalPage
+                        Sayfada
+                        @Model.TotalData
+                    </div>
+                </div>
+                <!--End::Pager-->
+            </div>
+
+            <!--End::Section-->
+
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/Scripts/Site/fill-search.js"></script>
+}

@@ -1,0 +1,163 @@
+﻿@using Gusto.Business.Helper
+@using Gusto.Entities.Enum
+@model Gusto.Entities.ComplexType.AddDomainModel
+@{
+    ViewBag.Title = "Domain Ekle";
+}
+
+<div class="m-grid__item m-grid__item--fluid  m-grid m-grid--ver-desktop m-grid--desktop m-body align-custom">
+    <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+        <!-- BEGIN: Subheader -->
+        <div class="m-subheader ">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto">
+                    <h6 class="m-subheader__title m-subheader__title--separator">Yeni Domain Ekle</h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- END: Subheader -->
+        <div class="m-content">
+            <!--Begin::Section-->
+            <form method="post" action="@Url.Action("Create")">
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <h4 style="color:cornflowerblue">Proje Bilgileri</h4>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Proje Adı</label>
+                        @Html.TextBoxFor(s => s.ProjeAdi, new{ @class = "form-control m-input" ,placeholder = "Örn : Verbiteklif" })
+                        <p>@Html.ValidationMessageFor(s => s.ProjeAdi)</p>
+                    </div>
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Proje Tipi</label>
+                        <select class="form-control" name="ProjeTipi">
+                            @foreach (ProjeTipi tip in ((ProjeTipi[])Enum.GetValues(typeof(ProjeTipi))).ToList())
+                            {
+                                <option value="@tip"> @tip.GetDescription() </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Yenileme Periyodu</label>
+                        @Html.TextBoxFor(s => s.YenilemePeriyodu, new { type = "number",placeholder ="Örn : 4",  @class = "form-control m-input" })
+                        <p>@Html.ValidationMessageFor(s => s.YenilemePeriyodu)</p>
+                    </div>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <h4 style="color:cornflowerblue">Domain Bilgileri</h4>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Domain Adı</label>
+                        @Html.TextBoxFor(s => s.DomainAdi, new { placeholder = "Örn : www.verbiteklif.com", @class = "form-control m-input" })
+                        <p>@Html.ValidationMessageFor(s => s.DomainAdi)</p>
+                    </div>
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Domain Bitiş Tarihi</label>
+                        @Html.TextBoxFor(s => s.DomainBitisTarihi, new { type = "date", @class = "form-control m-input" })
+                        <p>@Html.ValidationMessageFor(s => s.DomainBitisTarihi)</p>
+                    </div>
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Domain Fiyatı</label>
+                        @Html.TextBoxFor(s => s.DomainFiyati, new { placeholder="Örn : 50.90", type = "number", @class = "form-control m-input" })
+                        <p>@Html.ValidationMessageFor(s => s.DomainFiyati)</p>
+                    </div>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <h4 style="color:cornflowerblue">Sunucu Bilgileri</h4>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Sunucu</label>
+                        @Html.TextBoxFor(s => s.Sunucu, new { placeholder = "Örn : Natro reseller", @class = "form-control m-input" })
+                        <p>@Html.ValidationMessageFor(s => s.Sunucu)</p>
+                    </div>
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Sunucu Bitis Tarihi</label>
+                        @Html.TextBoxFor(s => s.SunucuBitisTarihi, new { type = "date", @class = "form-control m-input" })
+                        <p>@Html.ValidationMessageFor(s => s.SunucuBitisTarihi)</p>
+                    </div>
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Sunucu Fiyati</label>
+                        @Html.TextBoxFor(s => s.SunucuFiyati, new { type = "number", @class = "form-control m-input", placeholder = "Örn : 450" })
+                        <p>@Html.ValidationMessageFor(s => s.SunucuFiyati)</p>
+                    </div>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <div class="m-form__group form-group">
+                            <h4 style="color:cornflowerblue">SSL Var mı ?</h4>
+                            <div class="m-radio-inline">
+                                <label class="m-radio">
+                                    <input type="radio" name="SslVarmi" value="true"> Var
+                                    <span></span>
+                                </label>
+                                <label class="m-radio">
+                                    <input type="radio" name="SslVarmi"  checked="checked" value="false"> Yok
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center" id="SslRow" hidden="hidden">
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>SSL Bitis Tarihi</label>
+                        @Html.TextBoxFor(s => s.SslBitisTarihi, new { type = "date", @class = "form-control" })
+                        <p>@Html.ValidationMessageFor(s => s.SslBitisTarihi)</p>
+                    </div>
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>SSL Fiyatı</label>
+                        @Html.TextBoxFor(s => s.SslFiyati, new { type = "number", @class = "form-control m-input" })
+                        <p>@Html.ValidationMessageFor(s => s.SslFiyati)</p>
+                    </div>
+
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <h4 style="color:cornflowerblue">Statik Ip Bilgileri</h4>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Statik Ip</label>
+                        @Html.TextBoxFor(s => s.StatikIp, new { placeholder = "166.54.39.47", @class = "form-control m-input" })
+                        <p>@Html.ValidationMessageFor(s => s.StatikIp)</p>
+                    </div>
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Statik Ip Bitis Tarihi</label>
+                        @Html.TextBoxFor(s => s.StatikIpBitisTarihi, new { type = "date", @class = "form-control" })
+                        <p>@Html.ValidationMessageFor(s => s.StatikIpBitisTarihi)</p>
+                    </div>
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Statik Ip Fiyati</label>
+                        @Html.TextBoxFor(s => s.StatikIpFiyati, new { type = "number", placeholder = "Örn: 150", @class = "form-control m-input" })
+                        <p>@Html.ValidationMessageFor(s => s.StatikIpFiyati)</p>
+                    </div>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <h4 style="color:cornflowerblue">Bilgiler yeterli değil mi ?</h4>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <label>Not</label>
+                        <textarea placeholder="Notunu yazın (opsiyonel)" name="Not" class="form-control m-input" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="row m--margin-bottom-20 text-center justify-content-center">
+                    <div class="col-lg-4 m--margin-bottom-10-tablet-and-mobile">
+                        <button type="submit" class="btn btn-accent col-lg-12"> Kaydet </button>
+                    </div>
+                </div>
+            </form>
+            <!--End::Section-->
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/Site/create.js"></script>
+}
+
